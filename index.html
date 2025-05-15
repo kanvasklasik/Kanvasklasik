@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KanvasKlasik - Jasa Gambar Tangan Realistis Hitam Putih</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #f8f5f0;
+            --accent: #8b7355;
+            --paper: #f0ebe5;
+            --ink: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cormorant Garamond', serif;
+        }
+        
+        body {
+            background-color: var(--secondary);
+            color: var(--ink);
+            line-height: 1.8;
+            font-weight: 400;
+            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--primary);
+            color: var(--paper);
+            padding: 3rem 0 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--accent);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .tagline {
+            font-style: italic;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--primary);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 20px;
+            position: relative;
+        }
+        
+        nav ul li a {
+            color: var(--paper);
+            text-decoration: none;
+            font-weight: 400;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            padding: 5px 0;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(26,26,26,0.7), rgba(26,26,26,0.7)), url('https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--paper);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/rice-paper-3.png');
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            line-height: 1.3;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--paper);
+            padding: 12px 30px;
+            margin: 10px;
+            text-decoration: none;
+            border-radius: 0;
+            font-weight: 400;
+            letter-spacing: 1px;
+            border: 1px solid var(--paper);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+        }
+        
+        .btn:hover {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--paper);
+            mix-blend-mode: overlay;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .btn:hover::after {
+            opacity: 0.1;
+        }
+        
+        /* Sections */
+        section {
+            padding: 5rem 0;
+            border-bottom: 1px solid rgba(139, 115, 85, 0.2);
+            background-color: var(--secondary);
+            position: relative;
+        }
+        
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/rice-paper-3.png');
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        
+        section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            position: relative;
+            font-weight: 600;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+        
+        section h2::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 2px;
+            background: var(--accent);
+            margin: 20px auto;
+        }
+        
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            padding: 30px;
+            font-size: 1.1rem;
+            line-height: 1.9;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+        
+        .about-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .about-image img {
+            max-width: 100%;
+            height: auto;
+            border: 15px solid var(--paper);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.5s ease;
+        }
+        
+        .about-image img:hover {
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .service-card {
+            background-color: var(--paper);
+            border: none;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .service-card h3 {
+            margin: 20px 0 15px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .service-card p {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            color: var(--ink);
+        }
+        
+ /* Price List */
+        .price-table-container {
+            overflow-x: auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .price-table th {
+            background-color: var(--primary);
+            color: var(--paper);
+            padding: 15px;
+            text-align: left;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        
+        .price-table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(139, 115, 85, 0.1);
+            background-color: var(--paper);
+        }
+        
+        .price-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .price-table tr:hover td {
+            background-color: rgba(139, 115, 85, 0.05);
+        }
+        
+        /* Order Steps */
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 180px;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .step:hover {
+            transform: translateY(-5px);
+        }
+        
+        .step::after {
+            content: '→';
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent);
+            font-size: 1.5rem;
+            opacity: 0.5;
+        }
+        
+        .step:last-child::after {
+            display: none;
+        }
+        
+        .step-number {
+            background-color: var(--primary);
+            color: var(--paper);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-weight: 400;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .step:hover .step-number {
+            background-color: var(--accent);
+            transform: scale(1.1);
+        }
+        
+        /* Contact */
+        .contact-info {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .contact-method {
+            text-align: center;
+            margin: 20px;
+            padding: 30px;
+            background-color: var(--paper);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            min-width: 250px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .contact-method:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .contact-method h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+        
+        .contact-method a {
+            color: var(--accent);
+            text-decoration: none;
+            display: block;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .contact-method a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: var(--paper);
+            text-align: center;
+            padding: 3rem 0;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/rice-paper-3.png');
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        
+        .footer-quote {
+            font-style: italic;
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .step::after {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.2rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .hero {
+                height: 70vh;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .steps {
+                flex-direction: column;
+            }
+            
+            .step {
+                margin-bottom: 30px;
+            }
+            
+            .about-content, .services-grid {
+                flex-direction: column;
+            }
+            
+            section {
+                padding: 3rem 0;
+            }
+        }
+        
+        /* Scroll animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+</style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">KANVASKLASIK</div>
+            <p class="tagline">Jasa Gambar Tangan Realistis (Hitam Putih)</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#about">Tentang Kami</a></li>
+                <li><a href="#services">Layanan</a></li>
+                <li><a href="#prices">Harga</a></li>
+                <li><a href="#order">Cara Pesan</a></li>
+                <li><a href="#contact">Kontak</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Selamat Datang di KanvasKlasik</h1>
+            <p>Tempat di mana detail dan keindahan bertemu dalam karya gambar tangan hitam putih. Kami menghadirkan potret yang bukan hanya menyerupai, tetapi juga menangkap emosi dan cerita di baliknya.</p>
+            <a href="https://www.instagram.com/kanvasklasik" class="btn">Lihat Portofolio</a>
+            <a href="https://wa.me/628813164917" class="btn">Pesan Sekarang</a>
+        </div>
+    </section>
+    
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="animate-on-scroll">Tentang Kami</h2>
+            <div class="about-content">
+                <div class="about-text animate-on-scroll">
+                    <p>KanvasKlasik adalah layanan jasa gambar tangan realistis yang mengutamakan kehalusan detail, pencahayaan natural, dan nuansa klasik. Setiap karya dibuat sepenuh hati menggunakan pensil hitam putih di atas kertas pilihan, cocok untuk hadiah, kenang-kenangan, atau dekorasi rumah bergaya vintage.</p>
+                    <p>Semua karya dikirim dalam bentuk digital HD (gratis), dan bisa juga dicetak dan dikirim langsung ke rumah Anda (biaya ongkir ditanggung pemesan).</p>
+                </div>
+                <div class="about-image animate-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1579403124614-197f69d8187b?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Contoh Gambar">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="animate-on-scroll">Layanan Kami</h2>
+            <div class="services-grid">
+                <div class="service-card animate-on-scroll">
+                    <h3>Gambar Potret Wajah</h3>
+                    <p>A5 s/d A2</p>
+                </div>
+                <div class="service-card animate-on-scroll" style="transition-delay: 0.1s">
+                    <h3>Gambar Setengah Badan</h3>
+                    <p>Half body</p>
+                </div>
+                <div class="service-card animate-on-scroll" style="transition-delay: 0.2s">
+                    <h3>Gambar Seluruh Badan</h3>
+                    <p>Full body</p>
+                </div>
+                <div class="service-card animate-on-scroll" style="transition-delay: 0.3s">
+                    <h3>Sketsa Keluarga</h3>
+                    <p>Hingga 10 wajah</p>
+                </div>
+                <div class="service-card animate-on-scroll" style="transition-delay: 0.4s">
+                    <h3>Tambahan Background</h3>
+                    <p>Sesuai permintaan</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="prices" class="prices">
+        <div class="container">
+            <h2 class="animate-on-scroll">Daftar Harga</h2>
+            <div class="price-table-container animate-on-scroll">
+                <table class="price-table">
+                    <thead>
+                        <tr>
+                            <th>Layanan</th>
+                            <th>Ukuran</th>
+                            <th>Harga</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="4">Potret (Wajah Saja)</td>
+                            <td>A5</td>
+                            <td>Rp 100.000 – 140.000</td>
+                        </tr>
+                        <tr>
+                            <td>A4</td>
+                            <td>Rp 180.000 – 230.000</td>
+                        </tr>
+                        <tr>
+                            <td>A3</td>
+                            <td>Rp 300.000 – 400.000</td>
+                        </tr>
+                        <tr>
+                            <td>A2</td>
+                            <td>Rp 600.000 – 800.000</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="4">Half Body</td>
+                            <td>A5</td>
+                            <td>Rp 120.000 – 170.000</td>
+                        </tr>
+                        <tr>
+                            <td>A4</td>
+                            <td>Rp 220.000 – 280.000</td>
+                        </tr>
+                        <tr>
+                            <td>A3</td>
+                            <td>Rp 360.000 – 480.000</td>
+                        </tr>
+                        <tr>
+                            <td>A2</td>
+                            <td>Rp 720.000 – 960.000</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="4">Full Body</td>
+                            <td>A5</td>
+                            <td>Rp 150.000 – 210.000</td>
+                        </tr>
+                        <tr>
+                            <td>A4</td>
+                            <td>Rp 240.000 – 320.000</td>
+                        </tr>
+                        <tr>
+                            <td>A3</td>
+                            <td>Rp 420.000 – 560.000</td>
+                        </tr>
+                        <tr>
+                            <td>A2</td>
+                            <td>Rp 840.000 – 1.120.000</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Sketsa Keluarga (3–10 wajah)</td>
+                            <td>Mulai dari Rp 350.000 (A4) hingga Rp 2.200.000 (A2)</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="4">Tambahan Background</td>
+                            <td>A5</td>
+                            <td>+Rp 50.000</td>
+                        </tr>
+                        <tr>
+                            <td>A4</td>
+                            <td>+Rp 100.000</td>
+                        </tr>
+                        <tr>
+                            <td>A3</td>
+                            <td>+Rp 150.000</td>
+                        </tr>
+                        <tr>
+                            <td>A2</td>
+                            <td>+Rp 200.000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="text-align: center; margin-top: 20px;" class="animate-on-scroll">Waktu Pengerjaan: 1–7 hari (tergantung antrian dan tingkat kesulitan)</p>
+        </div>
+    </section>
+    
+    <section id="order" class="order">
+        <div class="container">
+            <h2 class="animate-on-scroll">Cara Pemesanan</h2>
+            <div class="steps">
+                <div class="step animate-on-scroll">
+                    <div class="step-number">1</div>
+                    <p>Konfirmasi pesanan dan harga</p>
+                </div>
+                <div class="step animate-on-scroll" style="transition-delay: 0.1s">
+                    <div class="step-number">2</div>
+                    <p>DP 50% untuk memulai pengerjaan</p>
+                </div>
+                <div class="step animate-on-scroll" style="transition-delay: 0.2s">
+                    <div class="step-number">3</div>
+                    <p>Kami mulai menggambar dan memberi update berkala</p>
+                </div>
+                <div class="step animate-on-scroll" style="transition-delay: 0.3s">
+                    <div class="step-number">4</div>
+                    <p>Pelunasan setelah selesai</p>
+                </div>
+                <div class="step animate-on-scroll" style="transition-delay: 0.4s">
+                    <div class="step-number">5</div>
+                    <p>Pengiriman file atau hasil fisik</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="https://wa.me/628813164917" class="btn animate-on-scroll" style="transition-delay: 0.5s">Pesan Sekarang via WhatsApp</a>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="animate-on-scroll">Hubungi Kami</h2>
+            <div class="contact-info">
+                <div class="contact-method animate-on-scroll">
+                    <h3>Instagram</h3>
+                    <a href="https://www.instagram.com/kanvasklasik" target="_blank">@kanvasklasik</a>
+                </div>
+                <div class="contact-method animate-on-scroll" style="transition-delay: 0.1s">
+                    <h3>Email</h3>
+                    <a href="mailto:kanvasklasikmalang@gmail.com">kanvasklasikmalang@gmail.com</a>
+                </div>
+                <div class="contact-method animate-on-scroll" style="transition-delay: 0.2s">
+                    <h3>WhatsApp</h3>
+                    <a href="https://wa.me/628813164917">08813164917</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 KanvasKlasik. Semua Hak Dilindungi.</p>
+            <p class="footer-quote">Seni adalah kenangan yang tak pernah pudar.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Animasi saat scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.animate-on-scroll');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            animateElements.forEach(el => observer.observe(el));
+            
+            // Efek tekan untuk tombol
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('mousedown', () => {
+                    button.style.transform = 'translateY(2px)';
+                });
+                button.addEventListener('mouseup', () => {
+                    button.style.transform = 'translateY(0)';
+                });
+                button.addEventListener('mouseleave', () => {
+                    button.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Efek hover halus untuk card
+            const cards = document.querySelectorAll('.service-card, .contact-method');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${(y - rect.height/2)/20}deg) rotateY(${(x - rect.width/2)/20}deg)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
